@@ -48,7 +48,9 @@ function Header() {
         <ul className="menu menu-horizontal px-1">{navItems}</ul>
       </div>
       <div className="navbar-end">
-        <a className="btn">Dashboard</a>
+        <NavLink to="/login" className="btn">
+          Login
+        </NavLink>
       </div>
     </div>
   );
