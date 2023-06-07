@@ -37,7 +37,7 @@ function Login() {
   }
   return (
     <div className="w-96 mt-10 mx-auto shadow-md p-6">
-      <h2 className="my-4 text-2xl text-bold">Login</h2>
+      <h2 className="mb-4 text-2xl font-bold">Login</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <input
           type="email"

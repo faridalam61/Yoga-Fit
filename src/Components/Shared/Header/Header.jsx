@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../AuthProvider/AuthProvider";
+import logo from '../../../assets/logo.png'
 
 function Header() {
   const {user,logOut} = useContext(AuthContext)
@@ -56,7 +57,7 @@ logOut()
             {navItems}
           </ul>
         </div>
-        <a className="btn btn-ghost normal-case text-xl">Yoga Fit</a>
+        <Link to='/'><img src={logo} className="w-40"/></Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{navItems}</ul>

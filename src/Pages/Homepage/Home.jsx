@@ -7,7 +7,7 @@ import YogaShop from "./YogaShop";
 function Home() {
   return (
     <div>
-      <Slider />
+      <Slider/>
       <PopularClasses/>
       <PopularInstructors/>
       <YogaShop/>

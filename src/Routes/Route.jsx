@@ -3,6 +3,8 @@ import Main from "../Layouts/Main";
 import Home from "../Pages/Homepage/Home";
 import Login from "../Pages/Login/Login";
 import SignUp from "../Pages/SingUp/SignUp";
+import Instructors from "../Pages/Instructors/Instructors";
+import Classes from "../Pages/Classes/Classes";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +23,14 @@ const router = createBrowserRouter([
         path: "/sign-up",
         element: <SignUp />,
       },
+      {
+        path:'/instructors',
+        element:<Instructors/>
+      },
+      {
+        path:'/classes',
+        element:<Classes/>
+      }
     ],
   },
 ]);
