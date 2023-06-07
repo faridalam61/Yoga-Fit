@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { FaEyeSlash,FaEye  } from 'react-icons/fa';
+
 
 function Login() {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   const {
     register,
     handleSubmit,
@@ -24,13 +32,17 @@ function Login() {
         {errors.email && (
           <span className="text-red-500 my-2">Email is required</span>
         )}
+        <div className="relative">
         <input
-          type="password"
+          type={showPassword ? 'text' : 'password'}
           placeholder="Password"
           className="input input-bordered my-3 w-full"
           {...register("password", { required: true })}
         />
-
+        <button className="absolute top-[28px] right-[15px] z-10" type="button" onClick={togglePasswordVisibility}>
+          {showPassword ? <FaEyeSlash/> : <FaEye />}
+        </button>
+        </div>
         {errors.password && (
           <span className="text-red-500 my-2">Password is required</span>
         )}
