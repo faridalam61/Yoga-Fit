@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 function Footer() {
   return (
-    <footer className="footer footer-center mt-10 p-10 bg-[#282A30] text-primary-content">
+    <footer className="footer footer-center p-10 bg-[#282A30] text-white">
   <div>
     <img src={footerLogo}/>
     <p className="text-lg">
