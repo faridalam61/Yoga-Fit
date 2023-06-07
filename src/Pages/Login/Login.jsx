@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
-import { FaEyeSlash,FaEye  } from 'react-icons/fa';
+import { Link, useNavigate } from "react-router-dom";
+import { FaEyeSlash,FaEye, FaGoogle  } from 'react-icons/fa';
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 
 function Login() {
+  const {loginUser,loginWithGoogle} = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate()
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -17,8 +20,21 @@ function Login() {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    console.log(data);
+    loginUser(data.email,data.password)
+    .then(()=>{
+      navigate('/')
+    })
+    .catch(error =>{
+      alert(error.message)
+    })
   };
+  // login with google
+  const handleGoogleLogin = ()=>{
+    loginWithGoogle()
+    .then(()=>{
+      navigate('/')
+    })
+  }
   return (
     <div className="w-96 mt-10 mx-auto shadow-md p-6">
       <h2 className="my-4 text-2xl text-bold">Login</h2>
@@ -57,8 +73,8 @@ function Login() {
         Don't have an account? <Link to="/sign-up">Sign Up here</Link>
       </p>
       <p className="text-center my-4 font-xl">-OR-</p>
-      <button className="w-full block bg-yellow-500 py-2 rounded-md">
-        Login with Google
+      <button onClick={handleGoogleLogin} className="w-full block bg-yellow-500 py-2 flex items-center gap-2 justify-center rounded-md">
+        <FaGoogle/> Login with Google
       </button>
     </div>
   );

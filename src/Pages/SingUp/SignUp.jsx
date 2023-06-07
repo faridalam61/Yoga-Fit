@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 function SignUp() {
+  const {createUser,setProfile} = useContext(AuthContext)
+  const navigate = useNavigate();
   const {
     register,
     watch,
@@ -12,7 +15,24 @@ function SignUp() {
   const password = watch("password");
 
   const onSubmit = (data) => {
-    console.log(data);
+    const profile = {
+      displayName:data.name,
+      photoURL:data.photoUrl,
+      phoneNumber:data.phone,
+      gender:data.gender,
+      address:data.address
+    }
+    createUser(data.email,data.password)
+    .then((data)=>{
+      setProfile(profile)
+      .then(()=>{
+        //navigate('/')
+        console.log(data.user)
+      })
+    })
+    .catch(error =>{
+      alert(error.message)
+    })
   };
   return (
     <div className="w-96 mt-10 mx-auto shadow-md p-6">
