@@ -129,7 +129,7 @@ function SignUp() {
         <input
           type="submit"
           value="Sign Up"
-          className="bg-black block w-full mt-3 rounded-md text-white py-3 px-6"
+          className="bg-black block w-full cursor-pointer mt-3 rounded-md text-white py-3 px-6"
         />
       </form>
       <p className="text-center my-4">

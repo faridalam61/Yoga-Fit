@@ -66,14 +66,14 @@ function Login() {
         <input
           type="submit"
           value="Login"
-          className="bg-black block w-full mt-3 rounded-md text-white py-3 px-6"
+          className="bg-black block w-full cursor-pointer mt-3 rounded-md text-white py-3 px-6"
         />
       </form>
       <p className="text-center my-4">
         Don't have an account? <Link to="/sign-up">Sign Up here</Link>
       </p>
       <p className="text-center my-4 font-xl">-OR-</p>
-      <button onClick={handleGoogleLogin} className="w-full block bg-yellow-500 py-2 flex items-center gap-2 justify-center rounded-md">
+      <button onClick={handleGoogleLogin} className="w-full cursor-pointer block bg-yellow-500 py-2 flex items-center gap-2 justify-center rounded-md">
         <FaGoogle/> Login with Google
       </button>
     </div>
