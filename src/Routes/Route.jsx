@@ -6,6 +6,9 @@ import SignUp from "../Pages/SingUp/SignUp";
 import Instructors from "../Pages/Instructors/Instructors";
 import Classes from "../Pages/Classes/Classes";
 import Dashboard from "../Layouts/Dashboard";
+import SelectedCourses from "../Pages/Dashboard/StudentDashboard/SelectedCourses";
+import EnrolledCourses from "../Pages/Dashboard/StudentDashboard/EnrolledCourses";
+import PaymentHistory from "../Pages/Dashboard/StudentDashboard/PaymentHistory";
 
 const router = createBrowserRouter([
   {
@@ -36,7 +39,21 @@ const router = createBrowserRouter([
   },
   {
     path:'dashboard',
-    element:<Dashboard/>
+    element:<Dashboard/>,
+    children:[
+      {
+        path:'selected-courses',
+        element:<SelectedCourses/>
+      },
+      {
+        path:'enrolled-courses',
+        element:<EnrolledCourses/>
+      },
+      {
+        path:'payment-history',
+        element:<PaymentHistory/>
+      }
+    ]
   }
 ]);
 
