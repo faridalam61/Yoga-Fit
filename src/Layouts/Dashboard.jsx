@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { Link, Outlet } from 'react-router-dom'
 import logo from '../assets/logo.png'
-import { FaHome, FaRegFolder, FaHistory } from 'react-icons/fa';
+import { FaHome, FaRegFolder, FaHistory, FaPlusCircle,FaUsers } from 'react-icons/fa';
 import { AuthContext } from '../AuthProvider/AuthProvider'
 
 
@@ -28,6 +28,14 @@ function Dashboard() {
               <li><Link to='selected-courses'><FaRegFolder /> Selected Courses</Link></li>
               <li><Link to='enrolled-courses'><FaRegFolder /> Enrolled Courses</Link></li>
               <li><Link to='payment-history'><FaHistory /> Payment History</Link></li>
+            </div>
+            <div>
+              <li><Link to='add-a-class'><FaPlusCircle /> Add a Class</Link></li>
+              <li><Link to='my-classes'><FaRegFolder /> My Classes</Link></li>
+            </div>
+            <div>
+              <li><Link to='manage-classes'><FaRegFolder /> Manage Classes</Link></li>
+              <li><Link to='manage-users'><FaUsers /> Manage Users</Link></li>
             </div>
           </ul>
 
