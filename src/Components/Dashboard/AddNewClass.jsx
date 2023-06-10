@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 function AddNewClass() {
+  const { user } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    const newClass = { ...data, status: "pending", enrolled: 0 };
+    const newClass = { ...data, status: "Pending", enrolled: 0 };
     fetch("http://localhost:3000/classes", {
       method: "POST",
       headers: {
@@ -50,12 +51,16 @@ function AddNewClass() {
         <input
           type="text"
           placeholder="Instructor"
+          defaultValue={user.displayName}
+          disabled
           className="input input-bordered my-3 w-full"
           {...register("instructor", { required: true })}
         />
         <input
           type="email"
           placeholder="Instructor Email"
+          defaultValue={user.email}
+          disabled
           className="input input-bordered my-3 w-full"
           {...register("instructorEmail", { required: true })}
         />

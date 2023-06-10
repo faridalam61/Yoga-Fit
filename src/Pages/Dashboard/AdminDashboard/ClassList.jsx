@@ -1,35 +1,41 @@
-import React, { useEffect, useState } from "react";
+import { useQueryClient, useMutation, useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import React from "react";
 
 function ClassList() {
-  const [classes, setClasses] = useState([]);
-  useEffect(() => {
-    fetch("http://localhost:3000/classes")
-      .then((res) => res.json())
-      .then((result) => setClasses(result));
-  }, []);
+  const queryClient = useQueryClient();
 
-  const handleStatus = (status, id) => {
-    fetch(`http://localhost:3000/classes/${id}`, {
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ status }),
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        if (result.modifiedCount > 0) {
-          alert("Status Changed");
-        }
-      });
+  const { data: classes = [], refetch } = useQuery(["classes"], async () => {
+    const response = await axios.get("http://localhost:3000/classes");
+    return response.data;
+  });
+
+  const { mutate: updateStatus } = useMutation((payload) =>
+    axios.patch(`http://localhost:3000/classes/${payload.id}`, payload.data)
+  );
+
+  const handleStatus = async (status, id) => {
+    try {
+      const response = await axios.patch(
+        `http://localhost:3000/classes/${id}`,
+        { status }
+      );
+      if (response.data.modifiedCount > 0) {
+        alert("Status Changed");
+        refetch();
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
+
   return (
     <div className="overflow-x-auto">
       <table className="table text-sm">
         {/* head */}
         <thead>
           <tr>
-            <th># </th>
+            <th>#</th>
             <th>Class Name</th>
             <th>Instructor</th>
             <th>Instructor Email</th>
@@ -47,33 +53,36 @@ function ClassList() {
                 <div className="flex items-center space-x-3">
                   <div className="avatar">
                     <div className="mask mask-squircle w-12 h-12">
-                      <img src={list?.image} />
+                      <img src={list.image} alt="Class Image" />
                     </div>
                   </div>
                   <div>
-                    <div className="text-sm">{list?.name}</div>
+                    <div className="text-sm">{list.name}</div>
                   </div>
                 </div>
               </td>
-              <td>{list?.instructor}</td>
-              <td>{list?.instructorEmail}</td>
-              <td>{list?.price}</td>
-              <td>{list?.availableSeats}</td>
-              <td>{list?.status}</td>
+              <td>{list.instructor}</td>
+              <td>{list.instructorEmail}</td>
+              <td>{list.price}</td>
+              <td>{list.availableSeats}</td>
+              <td>{list.status}</td>
               <td>
                 <button
+                  disabled={list.status !== "Pending"}
                   onClick={() => handleStatus("Approved", list._id)}
                   className="text-sm py-1 px-2 bg-green-500 text-white rounded-md m-1"
                 >
                   Approve
                 </button>
                 <button
+                  disabled={list.status !== "Pending"}
                   onClick={() => handleStatus("Denied", list._id)}
                   className="text-sm py-1 px-2 bg-red-500 text-white rounded-md m-1"
                 >
                   Deny
                 </button>
                 <button
+                  disabled={list.status !== "Pending"}
                   onClick={() => handleStatus("feedback", list._id)}
                   className="text-sm py-1 px-2 bg-orange-500 text-white rounded-md m-1"
                 >
