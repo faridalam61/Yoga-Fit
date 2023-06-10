@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 function SignUp() {
-  const {createUser,setProfile} = useContext(AuthContext)
+  const { createUser, setProfile } = useContext(AuthContext);
   const navigate = useNavigate();
   const {
     register,
@@ -16,23 +16,40 @@ function SignUp() {
 
   const onSubmit = (data) => {
     const profile = {
-      displayName:data.name,
-      photoURL:data.photoUrl,
-      phoneNumber:data.phone,
-      gender:data.gender,
-      address:data.address
-    }
-    createUser(data.email,data.password)
-    .then((data)=>{
-      setProfile(profile)
-      .then(()=>{
-        //navigate('/')
-        console.log(data.user)
+      displayName: data.name,
+      photoURL: data.photoUrl,
+      phoneNumber: data.phone,
+      gender: data.gender,
+      address: data.address,
+    };
+    createUser(data.email, data.password)
+      .then(() => {
+        setProfile(profile).then(() => {
+          const newUser = {
+            name: data.name,
+            photo: data.photoUrl,
+            email: data.email,
+            role: "Student",
+          };
+          fetch("http://localhost:3000/users", {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(newUser),
+          })
+            .then((res) => res.json())
+            .then((result) => {
+              console.log(result);
+              if (result.insertedId) {
+                alert("Success");
+              }
+            });
+        });
       })
-    })
-    .catch(error =>{
-      alert(error.message)
-    })
+      .catch((error) => {
+        alert(error.message);
+      });
   };
   return (
     <div className="w-96 mt-10 mx-auto shadow-md p-6">
