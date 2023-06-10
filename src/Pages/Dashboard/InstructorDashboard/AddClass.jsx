@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import AddNewClass from "../../../Components/Dashboard/AddNewClass";
 
 function AddClass() {
   return (
-    <div>AddClass</div>
-  )
+    <div>
+      <AddNewClass />
+    </div>
+  );
 }
 
-export default AddClass
+export default AddClass;
