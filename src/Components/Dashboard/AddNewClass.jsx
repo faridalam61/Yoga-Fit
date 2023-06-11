@@ -1,17 +1,32 @@
 import React, { useContext } from "react";
-import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 function AddNewClass() {
   const { user } = useContext(AuthContext);
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-  const onSubmit = (data) => {
-    const newClass = { ...data, status: "Pending", enrolled: 0 };
+
+  const handleAddClass = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const image = form.image.value;
+    const instructorEmail = form.instructorEmail.value;
+    const instructor = form.instructorName.value;
+    const price = parseFloat(form.price.value);
+    const availableSeats = form.seats.value;
+
+    const newClass = {
+      name,
+      image,
+      instructorEmail,
+      instructor,
+      price,
+      availableSeats,
+      status: "Pending",
+      enrolled: 0,
+    };
+    console.log(newClass);
+
     fetch("http://localhost:3000/classes", {
       method: "POST",
       headers: {
@@ -29,59 +44,54 @@ function AddNewClass() {
   return (
     <div className="w-96 mt-10 mx-auto shadow-md p-6">
       <h2 className="mb-4 text-2xl font-bold">Add New Class</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleAddClass}>
         <input
           type="text"
           placeholder="Class Name"
           className="input input-bordered my-3 w-full"
-          {...register("name", { required: true })}
+          name="name"
+          required
         />
-        {errors.name && (
-          <span className="text-red-500 my-2">Class Name is required</span>
-        )}
+
         <input
           type="text"
           placeholder="Class image"
           className="input input-bordered my-3 w-full"
-          {...register("image", { required: true })}
+          name="image"
+          required
         />
-        {errors.image && (
-          <span className="text-red-500 my-2">Class Name is required</span>
-        )}
+
         <input
           type="text"
           placeholder="Instructor"
           defaultValue={user.displayName}
-          disabled
           className="input input-bordered my-3 w-full"
-          {...register("instructor", { required: true })}
+          name="instructorName"
+          disabled
         />
         <input
           type="email"
           placeholder="Instructor Email"
           defaultValue={user.email}
-          disabled
           className="input input-bordered my-3 w-full"
-          {...register("instructorEmail", { required: true })}
+          name="instructorEmail"
+          disabled
         />
         <input
           type="text"
           placeholder="Available Seats"
           className="input input-bordered my-3 w-full"
-          {...register("availableSeats", { required: true })}
+          name="seats"
+          required
         />
-        {errors.availableSeats && (
-          <span className="text-red-500 my-2">Avilable seat is required</span>
-        )}
+
         <input
           type="text"
           placeholder="Price"
           className="input input-bordered my-3 w-full"
-          {...register("price", { required: true })}
+          name="price"
+          required
         />
-        {errors.availableSeats && (
-          <span className="text-red-500 my-2">Price is required</span>
-        )}
 
         <input
           type="submit"
