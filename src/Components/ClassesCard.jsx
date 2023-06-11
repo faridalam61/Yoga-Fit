@@ -5,7 +5,16 @@ import { AuthContext } from "../AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
 
 function ClassesCard({ item }) {
-  const { _id, image, availableSeats, instructor, name, price, status } = item;
+  const {
+    _id,
+    image,
+    availableSeats,
+    instructor,
+    name,
+    price,
+    status,
+    enrolled,
+  } = item;
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -32,6 +41,7 @@ function ClassesCard({ item }) {
         name,
         price,
         status,
+        enrolled,
         email: user.email,
         paymentStatus: "Unpaid",
       };

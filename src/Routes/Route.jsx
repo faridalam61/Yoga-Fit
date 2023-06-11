@@ -13,6 +13,7 @@ import AddClass from "../Pages/Dashboard/InstructorDashboard/AddClass";
 import MyClasses from "../Pages/Dashboard/InstructorDashboard/MyClasses";
 import ManageClasses from "../Pages/Dashboard/AdminDashboard/ManageClasses";
 import ManageUsers from "../Pages/Dashboard/AdminDashboard/ManageUsers";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -32,49 +33,53 @@ const router = createBrowserRouter([
         element: <SignUp />,
       },
       {
-        path:'/instructors',
-        element:<Instructors/>
+        path: "/instructors",
+        element: <Instructors />,
       },
       {
-        path:'/classes',
-        element:<Classes/>
-      }
+        path: "/classes",
+        element: <Classes />,
+      },
     ],
   },
   {
-    path:'dashboard',
-    element:<Dashboard/>,
-    children:[
+    path: "dashboard",
+    element: (
+      <PrivateRoute>
+        <Dashboard />
+      </PrivateRoute>
+    ),
+    children: [
       {
-        path:'selected-courses',
-        element:<SelectedCourses/>
+        path: "selected-courses",
+        element: <SelectedCourses />,
       },
       {
-        path:'enrolled-courses',
-        element:<EnrolledCourses/>
+        path: "enrolled-courses",
+        element: <EnrolledCourses />,
       },
       {
-        path:'payment-history',
-        element:<PaymentHistory/>
+        path: "payment-history",
+        element: <PaymentHistory />,
       },
       {
-        path:'add-a-class',
-        element:<AddClass/>
+        path: "add-a-class",
+        element: <AddClass />,
       },
       {
-        path:'my-classes',
-        element:<MyClasses/>
+        path: "my-classes",
+        element: <MyClasses />,
       },
       {
-        path:'manage-classes',
-        element:<ManageClasses/>
+        path: "manage-classes",
+        element: <ManageClasses />,
       },
       {
-        path:'manage-users',
-        element:<ManageUsers/>
-      }
-    ]
-  }
+        path: "manage-users",
+        element: <ManageUsers />,
+      },
+    ],
+  },
 ]);
 
 export default router;

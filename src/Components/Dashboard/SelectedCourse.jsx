@@ -10,7 +10,27 @@ function SelectedCourse() {
       .then((res) => res.json())
       .then((result) => setCalsses(result));
   }, []);
-  console.log(classes);
+  const handlePayNow = (id, enrolled) => {
+    // Update course
+    const totalEnrolled = enrolled + 1;
+    const updateEnrolement = { newEnrolled: totalEnrolled };
+    fetch(`http://localhost:3000/enrolled/${id}`, {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(updateEnrolement),
+    })
+      .then((res) => res.json)
+      .then((result) => {
+        if (result) {
+          // Save to enrolled course
+          // fetch();
+          console.log(result);
+          alert("success");
+        }
+      });
+  };
   return (
     <div>
       <h2 className="text-3xl mb-6">Selected Courses</h2>
@@ -50,7 +70,10 @@ function SelectedCourse() {
                   <button className="p-2 rounded-full bg-red-400 text-white hover:bg-red-600">
                     <FaTrash />{" "}
                   </button>
-                  <button className="bg-blue-500 hover:bg-blue-600 ms-4 font-normal text-white py-1 rounded-md px-4">
+                  <button
+                    onClick={() => handlePayNow(item._id, item.enrolled)}
+                    className="bg-blue-500 hover:bg-blue-600 ms-4 font-normal text-white py-1 rounded-md px-4"
+                  >
                     Pay Now
                   </button>
                 </th>

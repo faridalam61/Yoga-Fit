@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaEyeSlash, FaEye, FaGoogle } from "react-icons/fa";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 
@@ -8,6 +8,8 @@ function Login() {
   const { loginUser, loginWithGoogle } = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location?.state?.from?.pathname || "/";
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -21,7 +23,7 @@ function Login() {
   const onSubmit = (data) => {
     loginUser(data.email, data.password)
       .then(() => {
-        navigate("/");
+        navigate(from);
       })
       .catch((error) => {
         alert(error.message);
@@ -44,12 +46,7 @@ function Login() {
         body: JSON.stringify(newUser),
       })
         .then((res) => res.json())
-        .then((result) => {
-          console.log(result);
-          if (result.insertedId) {
-            alert("Success");
-          }
-        });
+        .then(() => navigate(from));
     });
   };
   return (
