@@ -14,6 +14,7 @@ import MyClasses from "../Pages/Dashboard/InstructorDashboard/MyClasses";
 import ManageClasses from "../Pages/Dashboard/AdminDashboard/ManageClasses";
 import ManageUsers from "../Pages/Dashboard/AdminDashboard/ManageUsers";
 import PrivateRoute from "./PrivateRoute";
+import EditClass from "../Pages/Dashboard/InstructorDashboard/EditClass";
 
 const router = createBrowserRouter([
   {
@@ -78,6 +79,10 @@ const router = createBrowserRouter([
         path: "manage-users",
         element: <ManageUsers />,
       },
+    {
+      path:'edit-class/:id',
+      element:<EditClass/>
+    }
     ],
   },
 ]);

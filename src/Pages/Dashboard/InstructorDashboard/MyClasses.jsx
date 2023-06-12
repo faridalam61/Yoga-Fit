@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import { AuthContext } from "../../../AuthProvider/AuthProvider";
+import { Link } from "react-router-dom";
 
 function MyClasses() {
   const [myclass, setMyclass] = useState([]);
@@ -48,30 +49,19 @@ function MyClasses() {
               <td>{item.status}</td>
               <td>No Feedback</td>
               <th>
-                <button
-                  onClick={() => window.my_modal_5.showModal()}
+                <Link to={`/dashboard/edit-class/${item._id}`}
+                  
                   className="bg-green-500 hover:bg-green-600 text-sm font-normal text-white rounded-md py-1 px-2 flex gap-2 items-center"
                 >
                   <FaEdit />
                   Edit
-                </button>
+                </Link>
               </th>
             </tr>
           ))}
         </tbody>
       </table>
-      <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
-        <form method="dialog" className="modal-box">
-          <h3 className="font-bold text-lg">Hello!</h3>
-          <p className="py-4">
-            Press ESC key or click the button below to close
-          </p>
-          <div className="modal-action">
-            {/* if there is a button in form, it will close the modal */}
-            <button className="btn">Close</button>
-          </div>
-        </form>
-      </dialog>
+      
     </div>
   );
 }

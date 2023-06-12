@@ -1,7 +1,16 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {FaTrash} from 'react-icons/fa'
+import { AuthContext } from '../../AuthProvider/AuthProvider';
 
 function EnrolledCourse() {
+  const {user} = useContext(AuthContext)
+  const [enrolled,setEnrolled] = useState([])
+  useEffect(()=>{
+    fetch(`http://localhost:3000/enrolled?email=${user.email}`)
+    .then(res => res.json())
+    .then(result => setEnrolled(result))
+  },[]);
+  console.log(enrolled)
   return (
     <div>
         <h2 className='text-3xl mb-6'>Enrolled Courses</h2>
@@ -10,35 +19,29 @@ function EnrolledCourse() {
     {/* head */}
     <thead>
       <tr>
-        <th>#</th>
-        <th>Course Name</th>
-        <th>Price</th>
-        <th>Actions</th>
+         <th>#</th>
+         <th>Course Name</th>
+          <th>Instructor Name</th>
+          <th>Price</th>
       </tr>
     </thead>
     <tbody>
-      {/* row 1 */}
-      <tr>
-        <th> 1
+      {
+        enrolled.map((item,index)=> <tr key={index}>
+        <th> {index+1}
         </th>
         <td>
           <div className="flex items-center space-x-3">
-            <div className="avatar">
-              <div className="mask mask-squircle w-12 h-12">
-                <img src="/tailwind-css-component-profile-2@56w.png" alt="Avatar Tailwind CSS Component" />
-              </div>
-            </div>
             <div>
-              <div className="font-bold">Hart Hagerty</div>
+              <div className="">{item.name}</div>
             </div>
           </div>
         </td>
-        <td>Purple</td>
-        <th>
-          <button className="p-2 rounded-full bg-red-400 text-white hover:bg-red-600"><FaTrash/> </button>
-          <button className="bg-blue-500 hover:bg-blue-600 ms-4 font-normal text-white py-1 rounded-md px-4">Pay Now</button>
-        </th>
-      </tr>
+        <td>{item.instructor}</td>
+        <td>{item.price}</td>
+      </tr> )
+      }
+      
     </tbody>
     
   </table>
