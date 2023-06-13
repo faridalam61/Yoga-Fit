@@ -42,7 +42,7 @@ function SignUp() {
             .then((result) => {
               console.log(result);
               if (result.insertedId) {
-                alert("Success");
+                navigate("/dashboard");
               }
             });
         });
