@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaEyeSlash, FaEye, FaGoogle } from "react-icons/fa";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
+import { Helmet } from "react-helmet";
 
 function Login() {
   const { loginUser, loginWithGoogle } = useContext(AuthContext);
@@ -38,19 +39,25 @@ function Login() {
         email: res.user.email,
         role: "Student",
       };
-      fetch("http://localhost:3000/users", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(newUser),
-      })
+      fetch(
+        "https://b7a12-summer-camp-server-side-faridalam61.vercel.app/users",
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(newUser),
+        }
+      )
         .then((res) => res.json())
         .then(() => navigate(from));
     });
   };
   return (
     <div className="w-96 mt-10 mx-auto shadow-md p-6">
+      <Helmet>
+        <title>Login | Yoga Fit</title>
+      </Helmet>
       <h2 className="mb-4 text-2xl font-bold">Login</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <input

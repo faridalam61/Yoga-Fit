@@ -1,23 +1,29 @@
 import { useQueryClient, useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import React from "react";
+import { Helmet } from "react-helmet";
 
 function ClassList() {
   const queryClient = useQueryClient();
 
   const { data: classes = [], refetch } = useQuery(["classes"], async () => {
-    const response = await axios.get("http://localhost:3000/classes");
+    const response = await axios.get(
+      "https://b7a12-summer-camp-server-side-faridalam61.vercel.app/classes"
+    );
     return response.data;
   });
 
   const { mutate: updateStatus } = useMutation((payload) =>
-    axios.patch(`http://localhost:3000/classes/${payload.id}`, payload.data)
+    axios.patch(
+      `https://b7a12-summer-camp-server-side-faridalam61.vercel.app/classes/${payload.id}`,
+      payload.data
+    )
   );
 
   const handleStatus = async (status, id) => {
     try {
       const response = await axios.patch(
-        `http://localhost:3000/classes/${id}`,
+        `https://b7a12-summer-camp-server-side-faridalam61.vercel.app/classes/${id}`,
         { status }
       );
       if (response.data.modifiedCount > 0) {
@@ -31,6 +37,9 @@ function ClassList() {
 
   return (
     <div className="overflow-x-auto">
+      <Helmet>
+        <title>Class List | Yoga Fit</title>
+      </Helmet>
       <table className="table text-sm">
         {/* head */}
         <thead>

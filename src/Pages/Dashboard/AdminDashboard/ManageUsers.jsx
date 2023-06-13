@@ -1,27 +1,36 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import { Helmet } from "react-helmet";
 
 function ManageUsers() {
   const { data: users = [], refetch } = useQuery(["users"], {
     queryFn: () =>
-      fetch("http://localhost:3000/users").then((res) => res.json()),
+      fetch(
+        "https://b7a12-summer-camp-server-side-faridalam61.vercel.app/users"
+      ).then((res) => res.json()),
   });
 
   console.log(users);
 
   const changeRole = (userId, newRole) => {
     const newUserRole = { role: newRole };
-    fetch(`http://localhost:3000/users/${userId}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newUserRole),
-    }).then(() => refetch());
+    fetch(
+      `https://b7a12-summer-camp-server-side-faridalam61.vercel.app/users/${userId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newUserRole),
+      }
+    ).then(() => refetch());
   };
 
   return (
     <div className="overflow-x-auto">
+      <Helmet>
+        <title>Manage Users | Yoga Fit</title>
+      </Helmet>
       <h2 className="text-2xl mb-6">All Users</h2>
       <table className="table">
         {/* head */}

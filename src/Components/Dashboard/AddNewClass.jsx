@@ -28,13 +28,16 @@ function AddNewClass() {
       enrolled: 0,
     };
 
-    fetch("http://localhost:3000/classes", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(newClass),
-    })
+    fetch(
+      "https://b7a12-summer-camp-server-side-faridalam61.vercel.app/classes",
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(newClass),
+      }
+    )
       .then((res) => res.json())
       .then((result) => {
         if (result.insertedId) {

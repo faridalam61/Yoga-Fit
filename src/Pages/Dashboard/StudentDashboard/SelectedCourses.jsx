@@ -1,12 +1,16 @@
-import React from 'react'
-import SelectedCourse from '../../../Components/Dashboard/SelectedCourse'
+import React from "react";
+import SelectedCourse from "../../../Components/Dashboard/SelectedCourse";
+import { Helmet } from "react-helmet";
 
 function SelectedCourses() {
   return (
     <div>
-        <SelectedCourse/>
+      <Helmet>
+        <title>Selected Courses | Yoga Fit</title>
+      </Helmet>
+      <SelectedCourse />
     </div>
-  )
+  );
 }
 
-export default SelectedCourses
+export default SelectedCourses;

@@ -4,7 +4,9 @@ import PopularInstructor from "../../Components/PopularInstructor";
 function PopularInstructors() {
   const [instructor, setInstructor] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:3000/popular")
+    fetch(
+      "https://b7a12-summer-camp-server-side-faridalam61.vercel.app/popular"
+    )
       .then((res) => res.json())
       .then((result) => setInstructor(result));
   }, []);

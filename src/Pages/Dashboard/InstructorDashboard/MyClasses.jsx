@@ -2,18 +2,24 @@ import React, { useContext, useEffect, useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import { AuthContext } from "../../../AuthProvider/AuthProvider";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 function MyClasses() {
   const [myclass, setMyclass] = useState([]);
   const { user } = useContext(AuthContext);
   useEffect(() => {
-    fetch(`http://localhost:3000/class?email=${user.email}`)
+    fetch(
+      `https://b7a12-summer-camp-server-side-faridalam61.vercel.app/class?email=${user.email}`
+    )
       .then((res) => res.json())
       .then((result) => setMyclass(result));
   }, []);
 
   return (
     <div className="overflow-x-auto">
+      <Helmet>
+        <title>My Classes | Yoga Fit</title>
+      </Helmet>
       <h2 className="text-2xl mb-7">My Classes</h2>
       <table className="table">
         {/* head */}
@@ -49,8 +55,8 @@ function MyClasses() {
               <td>{item.status}</td>
               <td>No Feedback</td>
               <th>
-                <Link to={`/dashboard/edit-class/${item._id}`}
-                  
+                <Link
+                  to={`/dashboard/edit-class/${item._id}`}
                   className="bg-green-500 hover:bg-green-600 text-sm font-normal text-white rounded-md py-1 px-2 flex gap-2 items-center"
                 >
                   <FaEdit />
@@ -61,7 +67,6 @@ function MyClasses() {
           ))}
         </tbody>
       </table>
-      
     </div>
   );
 }

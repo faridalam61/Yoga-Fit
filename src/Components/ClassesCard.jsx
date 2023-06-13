@@ -45,13 +45,16 @@ function ClassesCard({ item }) {
         email: user.email,
         paymentStatus: "Unpaid",
       };
-      fetch("http://localhost:3000/selected", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(selctedItem),
-      })
+      fetch(
+        "https://b7a12-summer-camp-server-side-faridalam61.vercel.app/selected",
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(selctedItem),
+        }
+      )
         .then((res) => res.json())
         .then((result) => {
           if (result.insertedId) {

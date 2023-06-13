@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
+import { Helmet } from "react-helmet";
 
 function SignUp() {
   const { createUser, setProfile } = useContext(AuthContext);
@@ -31,13 +32,16 @@ function SignUp() {
             email: data.email,
             role: "Student",
           };
-          fetch("http://localhost:3000/users", {
-            method: "POST",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify(newUser),
-          })
+          fetch(
+            "https://b7a12-summer-camp-server-side-faridalam61.vercel.app/users",
+            {
+              method: "POST",
+              headers: {
+                "content-type": "application/json",
+              },
+              body: JSON.stringify(newUser),
+            }
+          )
             .then((res) => res.json())
             .then((result) => {
               console.log(result);
@@ -53,6 +57,9 @@ function SignUp() {
   };
   return (
     <div className="w-96 mt-10 mx-auto shadow-md p-6">
+      <Helmet>
+        <title>Sign Up | Yoga Fit</title>
+      </Helmet>
       <h2 className="my-4 text-2xl text-bold">Sign Up</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <input

@@ -1,20 +1,21 @@
 import React, { useContext, useEffect, useState } from "react";
 
 import Swal from "sweetalert2";
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 import { AuthContext } from "../../../AuthProvider/AuthProvider";
-
 
 function EditClass() {
   const { user } = useContext(AuthContext);
-const editId = useParams().id;
-const [classData, setClassdata] = useState([])
-useEffect(()=>{
-    fetch(`http://localhost:3000/classes/${editId}`)
-    .then(res => res.json())
-    .then(result => setClassdata(result))
-},[])
-console.log(classData.name)
+  const editId = useParams().id;
+  const [classData, setClassdata] = useState([]);
+  useEffect(() => {
+    fetch(
+      `https://b7a12-summer-camp-server-side-faridalam61.vercel.app/classes/${editId}`
+    )
+      .then((res) => res.json())
+      .then((result) => setClassdata(result));
+  }, []);
+  console.log(classData.name);
   const handleEditClass = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -27,33 +28,37 @@ console.log(classData.name)
       name,
       image,
       price,
-      availableSeats
+      availableSeats,
     };
-   
 
-    fetch(`http://localhost:3000/classes/edit/${editId}`, {
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(newClass),
-    })
+    fetch(
+      `https://b7a12-summer-camp-server-side-faridalam61.vercel.app/classes/edit/${editId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(newClass),
+      }
+    )
       .then((res) => res.json())
       .then((result) => {
-        if (result.modifiedCount >0) {
+        if (result.modifiedCount > 0) {
           Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: 'Class updated successfully',
+            position: "top-end",
+            icon: "success",
+            title: "Class updated successfully",
             showConfirmButton: false,
-            timer: 1500
-          })
-         
+            timer: 1500,
+          });
         }
       });
   };
   return (
     <div className="w-96 mt-10 mx-auto shadow-md p-6">
+      <Helmet>
+        <title>Edit Class | Yoga Fit</title>
+      </Helmet>
       <h2 className="mb-4 text-2xl font-bold">Update Class</h2>
       <form onSubmit={handleEditClass}>
         <label>Class Name</label>
@@ -65,7 +70,7 @@ console.log(classData.name)
           required
           defaultValue={classData.name}
         />
- <label>Class Image</label>
+        <label>Class Image</label>
         <input
           type="text"
           placeholder="Class image"
@@ -75,7 +80,7 @@ console.log(classData.name)
           required
         />
 
-<label>Available Seats</label>
+        <label>Available Seats</label>
         <input
           type="text"
           placeholder="Available Seats"
