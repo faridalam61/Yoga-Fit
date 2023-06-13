@@ -1,14 +1,14 @@
-import React from 'react'
-import banner from '../assets/class.jpg'
+import React from "react";
 
-function PopularInstructor() {
+function PopularInstructor({ person }) {
+  const { instructorImage, instructor, enrolled } = person;
   return (
-    <div className='text-center'>
-        <img src={banner} className='mx-auto rounded-md'/>
-        <h2 className='text-xl mt-4'>Private & Group Lessons</h2>
-        <h2 className='text-xl'>300 Students</h2>
+    <div className="text-center">
+      <img src={instructorImage} className="mx-auto rounded-md" />
+      <h2 className="text-xl mt-4">{instructor}</h2>
+      <h2 className="text-xl">{enrolled} Sales</h2>
     </div>
-  )
+  );
 }
 
-export default PopularInstructor
+export default PopularInstructor;

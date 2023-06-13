@@ -23,10 +23,10 @@ function AddNewClass() {
       instructor,
       price,
       availableSeats,
+      instructorImage: user.photoURL,
       status: "Pending",
       enrolled: 0,
     };
-   
 
     fetch("http://localhost:3000/classes", {
       method: "POST",
@@ -39,13 +39,13 @@ function AddNewClass() {
       .then((result) => {
         if (result.insertedId) {
           Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: 'Class added successfully',
+            position: "top-end",
+            icon: "success",
+            title: "Class added successfully",
             showConfirmButton: false,
-            timer: 1500
-          })
-          form.reset()
+            timer: 1500,
+          });
+          form.reset();
         }
       });
   };
