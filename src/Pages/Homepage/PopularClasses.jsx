@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PopularClass from "../../Components/Shared/PopularClass";
+import { Helmet } from "react-helmet";
 
 function PopularClasses() {
   const [classes, setClasses] = useState([]);

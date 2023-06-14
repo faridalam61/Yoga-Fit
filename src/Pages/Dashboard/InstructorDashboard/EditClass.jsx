@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../../../AuthProvider/AuthProvider";
+import { Helmet } from "react-helmet";
 
 function EditClass() {
   const { user } = useContext(AuthContext);
